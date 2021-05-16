@@ -42,6 +42,7 @@ const getBoard = async (id) => DB.boards.find((board) => board.id === id);
 
 const createBoard = async (board) => {
   DB.boards.push(board);
+
   return board;
 };
 
@@ -53,6 +54,7 @@ const updateBoard = async (id, updatedBoard) => {
   }
 
   DB.boards[index] = updatedBoard;
+
   return updatedBoard;
 };
 
@@ -74,6 +76,7 @@ const getTask = async (id) => DB.tasks.find((task) => task.id === id);
 
 const createTask = async (task) => {
   DB.tasks.push(task);
+
   return task;
 };
 
