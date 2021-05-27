@@ -1,9 +1,13 @@
-import { Router } from 'express';
+import { Request, Router } from 'express';
 import Task from "./task.model";
 
 const tasksService = require('./task.service');
 
 const router = Router();
+
+interface RequestParams extends Request {
+  boardId: string
+}
 
 router.route('/').get(async (req, res) => {
   try {
@@ -23,7 +27,7 @@ router.route('/:id').get(async (req, res) => {
   }
 });
 
-router.route('/').post(async (req, res) => {
+router.route('/').post(async (req: RequestParams, res) => {
   const task = await tasksService.create(
     new Task({
       title: req.body.title,
@@ -37,7 +41,7 @@ router.route('/').post(async (req, res) => {
   res.status(task ? 201 : 400).json(Task.toResponse(task));
 });
 
-router.route('/:id').put(async (req, res) => {
+router.route('/:id').put(async (req: RequestParams, res) => {
   try {
     const updatedTask = {
       title: req.body.title,
@@ -48,6 +52,7 @@ router.route('/:id').put(async (req, res) => {
       boardId: req.params.boardId,
       id: req.params.id,
     };
+
     const task = await tasksService.updateById(req.params.id, updatedTask);
     res.json(Task.toResponse(task));
   } catch (err) {

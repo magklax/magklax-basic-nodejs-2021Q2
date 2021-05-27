@@ -41,7 +41,7 @@ const create = async (user: User): Promise<User> => createUser(user);
 const updateById = async (id: string, updatedUser: User): Promise<User> => {
   const user = await updateUser(id, updatedUser);
 
-  errorHandler(user, id, 'user');
+  errorHandler(user.name, id, 'user');
 
   return user;
 };

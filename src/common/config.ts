@@ -1,17 +1,13 @@
-import * as dotenv from "dotenv";
-import * as path from "path";
+import dotenv from "dotenv";
+import path from "path";
 
 dotenv.config({
   path: path.join(__dirname, '../../.env')
 });
 
-module.exports = {
-  NODE_ENV: process.env.NODE_ENV,
-  MONGO_CONNECTION_STRING: process.env.MONGO_CONNECTION_STRING,
-  JWT_SECRET_KEY: process.env.JWT_SECRET_KEY,
-  AUTH_MODE: process.env.AUTH_MODE === 'true'
-};
-
 const PORT = process.env.PORT;
+const NODE_ENV = process.env.NODE_ENV;
+const MONGO_CONNECTION_STRING = process.env.MONGO_CONNECTION_STRING;
+const AUTH_MODE = process.env.AUTH_MODE === 'true';
 
-export { PORT };
+export { PORT, NODE_ENV, MONGO_CONNECTION_STRING, AUTH_MODE };
