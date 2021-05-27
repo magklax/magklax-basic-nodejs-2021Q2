@@ -1,4 +1,14 @@
-const DB = {
+import User from "../resources/users/user.model";
+import Board from "../resources/boards/board.model";
+import Task from "../resources/tasks/task.model";
+
+interface IDB {
+  users: Array<User>;
+  boards: Array<Board>;
+  tasks: Array<Task>
+}
+
+export const DB: IDB = {
   users: [],
   boards: [],
   tasks: [],
@@ -6,26 +16,26 @@ const DB = {
 
 /**
  * Returns the array of users
- * @returns {Promise<Array>} Promise object represents the array of all users
+ * @returns {Promise<Array<User>} Promise object represents the array of all users
  */
 
-const getAllUsers = async () => [...DB.users];
+const getAllUsers = async (): Promise<Array<User>> => [...DB.users];
 
 /**
  * Returns the user by id
  * @param {string} id user id
- * @returns {Promise<Object>} Promise object represents the user
+ * @returns {Promise<User>} Promise object represents the user
  */
 
-const getUser = async (id) => DB.users.find((user) => user.id === id);
+const getUser = async (id: string): Promise<User> => DB.users.find((user) => user.id === id);
 
 /**
  * Returns the created user
- * @param {Object} board new user data 
- * @returns {Promise<Object>} Promise object represents the created user
+ * @param {User} board new user data 
+ * @returns {Promise<User>} Promise object represents the created user
  */
 
-const createUser = async (user) => {
+const createUser = async (user: User): Promise<User> => {
   DB.users.push(user);
   return user;
 };
@@ -33,11 +43,11 @@ const createUser = async (user) => {
 /**
  * Returns the updated task
  * @param {string} id user id to update
- * @param {Object} updatedUser user data
- * @returns {Promise<Object>} Promise object represents the updated user
+ * @param {User} updatedUser user data
+ * @returns {Promise<User>} Promise object represents the updated user
  */
 
-const updateUser = async (id, updatedUser) => {
+const updateUser = async (id: string, updatedUser: User): Promise<User> => {
   const index = DB.users.findIndex((user) => user.id === id);
 
   if (index < 0) {
@@ -51,10 +61,10 @@ const updateUser = async (id, updatedUser) => {
 /**
  * Returns the deleted task
  * @param {string} id user id to delete
- * @returns {Promise<Object>} Promise object represents the deleted user
+ * @returns {Promise<User>} Promise object represents the deleted user
  */
 
-const deleteUser = async (id) => {
+const deleteUser = async (id: string): Promise<User> => {
   const deletedUser = DB.users.find((user) => user.id === id);
 
   if (!deletedUser) {
@@ -68,26 +78,26 @@ const deleteUser = async (id) => {
 
 /**
  * Returns the array of boards
- * @returns {Promise<Array>} Promise object represents the array of all boards
+ * @returns {Promise<Array<Board>>} Promise object represents the array of all boards
  */
 
-const getAllBoards = async () => [...DB.boards];
+const getAllBoards = async (): Promise<Array<Board>> => [...DB.boards];
 
 /**
  * Returns the board by id
  * @param {string} id board id
- * @returns {Promise<Object>} Promise object represents the board
+ * @returns {Promise<Board>} Promise object represents the board
  */
 
-const getBoard = async (id) => DB.boards.find((board) => board.id === id);
+const getBoard = async (id: string): Promise<Board> => DB.boards.find((board) => board.id === id);
 
 /**
  * Returns the created board
- * @param {Object} board new board data 
- * @returns {Promise<Object>} Promise object represents the created board
+ * @param {Board} board new board data 
+ * @returns {Promise<Board>} Promise object represents the created board
  */
 
-const createBoard = async (board) => {
+const createBoard = async (board: Board): Promise<Board> => {
   DB.boards.push(board);
 
   return board;
@@ -96,11 +106,11 @@ const createBoard = async (board) => {
 /**
  * Returns the updated board
  * @param {string} id board id to update
- * @param {Object} updatedBoard board data
- * @returns {Promise<Object>} Promise object represents the updated board
+ * @param {Board} updatedBoard board data
+ * @returns {Promise<Board>} Promise object represents the updated board
  */
 
-const updateBoard = async (id, updatedBoard) => {
+const updateBoard = async (id: string, updatedBoard: Board): Promise<Board> => {
   const index = DB.boards.findIndex((board) => board.id === id);
 
   if (index < 0) {
@@ -115,10 +125,10 @@ const updateBoard = async (id, updatedBoard) => {
 /**
  * Returns the deleted board
  * @param {string} id board id to delete
- * @returns {Promise<Object>} Promise object represents the deleted board
+ * @returns {Promise<Board>} Promise object represents the deleted board
  */
 
-const deleteBoard = async (id) => {
+const deleteBoard = async (id: string): Promise<Board> => {
   const deletedBoard = DB.boards.find((board) => board.id === id);
 
   if (!deletedBoard) {
@@ -132,26 +142,26 @@ const deleteBoard = async (id) => {
 
 /**
  * Returns the array of tasks
- * @returns {Promise<Array>} Promise object represents the array of all tasks
+ * @returns {Promise<Array<Task>>} Promise object represents the array of all tasks
  */
 
-const getAllTasks = async () => [...DB.tasks];
+const getAllTasks = async (): Promise<Array<Task>> => [...DB.tasks];
 
 /**
  * Returns the task by id
  * @param {string} id task id
- * @returns {Promise<Object>} Promise object represents the task
+ * @returns {Promise<Task>} Promise object represents the task
  */
 
-const getTask = async (id) => DB.tasks.find((task) => task.id === id);
+const getTask = async (id: string): Promise<Task> => DB.tasks.find((task) => task.id === id);
 
 /**
  * Returns the created task
- * @param {Object} board new task data 
- * @returns {Promise<Object>} Promise object represents the created task
+ * @param {Task} board new task data 
+ * @returns {Promise<Task>} Promise object represents the created task
  */
 
-const createTask = async (task) => {
+const createTask = async (task: Task): Promise<Task> => {
   DB.tasks.push(task);
 
   return task;
@@ -160,11 +170,11 @@ const createTask = async (task) => {
 /**
  * Returns the updated task
  * @param {string} id task id to update
- * @param {Object} updatedTask task data
- * @returns {Promise<Object>} Promise object represents the updated task
+ * @param {Task} updatedTask task data
+ * @returns {Promise<Task>} Promise object represents the updated task
  */
 
-const updateTask = async (id, updatedTask) => {
+const updateTask = async (id: string, updatedTask: Task): Promise<Task> => {
   const index = DB.tasks.findIndex((task) => task.id === id);
 
   if (!index) {
@@ -179,10 +189,10 @@ const updateTask = async (id, updatedTask) => {
 /**
  * Returns the deleted task
  * @param {string} id task id to delete
- * @returns {Promise<Object>} Promise object represents the deleted task
+ * @returns {Promise<Task>} Promise object represents the deleted task
  */
 
-const deleteTask = async (id) => {
+const deleteTask = async (id: string): Promise<Task> => {
   const deletedTask = DB.tasks.find((task) => task.id === id);
 
   if (!deletedTask) {
@@ -200,7 +210,7 @@ const deleteTask = async (id) => {
  * @returns {Promise<void>} Promise object represents undefined
  */
 
-const unasignTasks = async (userId) => {
+const unasignTasks = async (userId: string): Promise<void> => {
   DB.tasks = DB.tasks.map((task) =>
     task.userId === userId ? { ...task, userId: null } : { ...task }
   );
@@ -212,11 +222,11 @@ const unasignTasks = async (userId) => {
  * @returns {Promise<void>} Promise object represents undefined
  */
 
-const deleteTasks = async (boardId) => {
+const deleteTasks = async (boardId: string): Promise<void> => {
   DB.tasks = DB.tasks.filter((task) => task.boardId !== boardId);
 };
 
-module.exports = {
+export {
   getAllUsers,
   getUser,
   createUser,
@@ -234,4 +244,4 @@ module.exports = {
   deleteTask,
   unasignTasks,
   deleteTasks,
-};
+}

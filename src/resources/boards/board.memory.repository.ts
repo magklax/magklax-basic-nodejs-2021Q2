@@ -1,46 +1,47 @@
-const DB = require('../../common/inMemoryDB');
 import errorHandler from "../../common/utils";
+import Board from './board.model';
+import { getAllBoards, getBoard, createBoard, updateBoard, deleteBoard, deleteTasks } from '../../common/inMemoryDB';
 
 /**
  * Returns the array of boards
- * @returns {Promise<Array>} Promise object represents the array of all boards
+ * @returns {Promise<Array<Board>>} Promise object represents the array of all boards
  */
 
-const getAll = async () => DB.getAllBoards();
+const getAll = async () => getAllBoards();
 
 /**
  * Returns the board by id
  * @param {string} id user id
- * @returns {Promise<Object>} Promise object represents the board
+ * @returns {Promise<Board>} Promise object represents the board
  */
 
-const getById = async (id) => {
-  const board = await DB.getBoard(id);
+const getById = async (id: string): Promise<Board> => {
+  const board = await getBoard(id);
 
-  errorHandler(board, id, 'board');
+  errorHandler(board.title, id, 'board');
 
   return board;
 };
 
 /**
  * Returns the created board
- * @param {Object} board new board data 
- * @returns {Promise<Object>} Promise object represents the created board
+ * @param {Board} board new board data 
+ * @returns {Promise<Board>} Promise object represents the created board
  */
 
-const create = async (board) => DB.createBoard(board);
+const create = async (board: Board): Promise<Board> => createBoard(board);
 
 /**
  * Returns the updated board
  * @param {string} id board id to update
- * @param {Object} updatedBoard board data
- * @returns {Promise<Object>} Promise object represents the updated board
+ * @param {Board} updatedBoard board data
+ * @returns {Promise<Board>} Promise object represents the updated board
  */
 
-const updateById = async (id, updatedBoard) => {
-  const board = await DB.updateBoard(id, updatedBoard);
+const updateById = async (id: string, updatedBoard: Board): Promise<Board> => {
+  const board = await updateBoard(id, updatedBoard);
 
-  errorHandler(board, id, 'board');
+  errorHandler(board.title, id, 'board');
 
   return board;
 };
@@ -48,16 +49,16 @@ const updateById = async (id, updatedBoard) => {
 /**
  * Returns the deleted board
  * @param {string} id board id to delete
- * @returns {Promise<Object>} Promise object represents the deleted board
+ * @returns {Promise<Board>} Promise object represents the deleted board
  */
 
-const deleteById = async (id) => {
-  const board = await DB.deleteBoard(id);
-  DB.deleteTasks(id);
+const deleteById = async (id: string): Promise<Board> => {
+  const board = await deleteBoard(id);
+  deleteTasks(id);
 
-  errorHandler(board, id, 'board');
+  errorHandler(board.title, id, 'board');
 
   return board;
 };
 
-module.exports = { getAll, getById, create, updateById, deleteById };
+export { getAll, getById, create, updateById, deleteById };

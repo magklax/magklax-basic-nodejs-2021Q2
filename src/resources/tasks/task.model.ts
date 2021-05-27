@@ -1,15 +1,5 @@
 import { v4 as uuid } from 'uuid';
 
-interface ITask {
-  id: string;
-  title: string;
-  order: number;
-  description: string;
-  userId: string;
-  boardId: string;
-  columnId: string;
-}
-
 /** Class representing a task model. */
 class Task {
   /**
@@ -52,13 +42,13 @@ class Task {
   /**
  * Return task object
  * @param {Task} task - created task object
- * @return {Object<Task.id, Task.title, Task.order, Task.description, Task.userId, Task,boardId, Task.columnId>} task object
+ * @return {Task} task object
  */
 
-  static toResponse(task: Task): ITask {
+  static toResponse(task: Task): Task {
     const { id, title, order, description, userId, boardId, columnId } = task;
     return { id, title, order, description, userId, boardId, columnId };
   }
 }
 
-module.exports = Task;
+export default Task;

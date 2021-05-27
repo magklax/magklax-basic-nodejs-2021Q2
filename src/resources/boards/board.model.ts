@@ -1,15 +1,5 @@
 import { v4 as uuid } from 'uuid';
 
-interface IBoard {
-  id: string;
-  title: string;
-  columns: Array<{
-    id: string;
-    title: string;
-    order: number;
-  }>
-}
-
 /** Class representing a user board. */
 class Board {
   /**
@@ -46,13 +36,13 @@ class Board {
   /**
  * Return board object
  * @param {Board} board - created board object
- * @return {Object<Board.id, Board.title, Board.order>} board object 
+ * @return {Board} board object 
  */
 
-  static toResponse(board: Board): IBoard {
+  static toResponse(board: Board): Board {
     const { id, title, columns } = board;
     return { id, title, columns };
   }
 }
 
-module.exports = Board;
+export default Board;

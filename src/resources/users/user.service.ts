@@ -1,43 +1,44 @@
-const usersRepo = require('./user.memory.repository');
+import * as usersRepo from "./user.memory.repository";
+import User from "./user.model";
 
 /**
  * Returns the array of users
- * @returns {Promise<Array>} Promise object represents the array of all users
+ * @returns {Promise<Array<User>>} Promise object represents the array of all users
  */
 
-const getAll = () => usersRepo.getAll();
+const getAll = (): Promise<Array<User>> => usersRepo.getAll();
 
 /**
  * Returns the user by id
  * @param {string} id user id
- * @returns {Promise<Object>} Promise object represents the user
+ * @returns {Promise<User>} Promise object represents the user
  */
 
-const getById = (id) => usersRepo.getById(id);
+const getById = (id: string): Promise<User> => usersRepo.getById(id);
 
 /**
  * Returns the created user
- * @param {Object} board new user data 
- * @returns {Promise<Object>} Promise object represents the created user
+ * @param {User} board new user data 
+ * @returns {Promise<User>} Promise object represents the created user
  */
 
-const create = (user) => usersRepo.create(user);
+const create = (user: User): Promise<User> => usersRepo.create(user);
 
 /**
  * Returns the updated task
  * @param {string} id user id to update
- * @param {Object} updatedUser user data
- * @returns {Promise<Object>} Promise object represents the updated user
+ * @param {User} updatedUser user data
+ * @returns {Promise<User>} Promise object represents the updated user
  */
 
-const updateById = (id, updatedUser) => usersRepo.updateById(id, updatedUser);
+const updateById = (id: string, updatedUser: User): Promise<User> => usersRepo.updateById(id, updatedUser);
 
 /**
  * Returns the deleted task
  * @param {string} id user id to delete
- * @returns {Promise<Object>} Promise object represents the deleted user
+ * @returns {Promise<User>} Promise object represents the deleted user
  */
 
-const deleteById = (id) => usersRepo.deleteById(id);
+const deleteById = (id: string): Promise<User> => usersRepo.deleteById(id);
 
-module.exports = { getAll, getById, create, updateById, deleteById };
+export { getAll, getById, create, updateById, deleteById }

@@ -36,7 +36,7 @@ class User {
   /**
    * Return user object
    * @param {User} user - created user object
-   * @return {Object<User.id, User.name, User.login>} user object without password property
+   * @return {IPublicUser} user object without password property
    */
 
   static toResponse(user: User): IPublicUser {
@@ -45,4 +45,4 @@ class User {
   }
 }
 
-export { User };
+export default User;

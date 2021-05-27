@@ -1,6 +1,9 @@
-const router = require('express').Router({ mergeParams: true });
-const Task = require('./task.model');
+import { Router } from 'express';
+import Task from "./task.model";
+
 const tasksService = require('./task.service');
+
+const router = Router();
 
 router.route('/').get(async (req, res) => {
   try {
