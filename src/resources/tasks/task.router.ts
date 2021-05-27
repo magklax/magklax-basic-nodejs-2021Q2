@@ -3,10 +3,10 @@ import Task from "./task.model";
 
 const tasksService = require('./task.service');
 
-const router = Router();
+const router = Router({ mergeParams: true });
 
 interface RequestParams extends Request {
-  boardId: string
+  reportId: string
 }
 
 router.route('/').get(async (req, res) => {
