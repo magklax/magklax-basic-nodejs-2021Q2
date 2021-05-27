@@ -1,26 +1,44 @@
-const uuid = require('uuid').v4;
+import { v4 as uuid } from 'uuid';
+
+interface ITask {
+  id: string;
+  title: string;
+  order: number;
+  description: string;
+  userId: string;
+  boardId: string;
+  columnId: string;
+}
 
 /** Class representing a task model. */
 class Task {
-    /**
-   * Create task
-   * @property {string} id - task id
-   * @property {string} title - task title
-   * @property {number} order - task order
-   * @property {string} description - task description
-   * @property {string | null} userId - task user id
-   * @property {string | null} boardId - task boar id
-   * @property {string | null} columnId - task column id
-   */
+  /**
+ * Create task
+ * @property {string} id - task id
+ * @property {string} title - task title
+ * @property {number} order - task order
+ * @property {string} description - task description
+ * @property {string} userId - task user id
+ * @property {string} boardId - task boar id
+ * @property {string} columnId - task column id
+ */
+
+  id: string;
+  title: string;
+  order: number;
+  description: string;
+  userId: string;
+  boardId: string;
+  columnId: string;
 
   constructor({
     id = uuid(),
     title = 'title',
     order = 0,
     description = 'description',
-    userId = null,
-    boardId = null,
-    columnId = null,
+    userId = 'userId',
+    boardId = 'boardId',
+    columnId = 'columnId',
   } = {}) {
     this.id = id;
     this.title = title;
@@ -31,13 +49,13 @@ class Task {
     this.columnId = columnId;
   }
 
-    /**
-   * Return task object
-   * @param {Task} task - created task object
-   * @return {Object<Task.id, Task.title, Task.order, Task.description, Task.userId, Task,boardId, Task.columnId>} task object
-   */
+  /**
+ * Return task object
+ * @param {Task} task - created task object
+ * @return {Object<Task.id, Task.title, Task.order, Task.description, Task.userId, Task,boardId, Task.columnId>} task object
+ */
 
-  static toResponse(task) {
+  static toResponse(task: Task): ITask {
     const { id, title, order, description, userId, boardId, columnId } = task;
     return { id, title, order, description, userId, boardId, columnId };
   }

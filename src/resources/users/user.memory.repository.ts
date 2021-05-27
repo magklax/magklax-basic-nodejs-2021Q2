@@ -1,5 +1,5 @@
 const DB = require('../../common/inMemoryDB');
-const { errorHandler } = require('../../common/utils');
+import errorHandler from "../../common/utils";
 
 /**
  * Returns the array of users

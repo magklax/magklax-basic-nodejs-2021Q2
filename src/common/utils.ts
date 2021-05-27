@@ -7,10 +7,10 @@
  * 
  */
 
-const errorHandler = (item , id, name) => {
+const errorHandler = (item: string, id: string, name: string): void => {
   if (!item) {
     throw new Error(`The ${name} with id: ${id} has not been found`);
   }
 };
 
-module.exports = { errorHandler };
+export default errorHandler;

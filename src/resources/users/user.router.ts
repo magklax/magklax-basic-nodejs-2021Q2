@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const User = require('./user.model');
+import { User } from './user.model'
 const usersService = require('./user.service');
 
 router.route('/').get(async (req, res) => {
@@ -53,4 +53,4 @@ router.route('/:id').delete(async (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;

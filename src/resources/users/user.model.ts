@@ -1,4 +1,10 @@
-const uuid = require('uuid').v4;
+import { v4 as uuid } from 'uuid';
+
+interface IPublicUser {
+  id: string;
+  name: string;
+  login: string;
+}
 
 /** Class representing a user model. */
 class User {
@@ -9,6 +15,11 @@ class User {
    * @property {string} login - user login
    * @property {string} password - user password
    */
+
+  id: string;
+  name: string;
+  login: string;
+  password: string;
 
   constructor({
     id = uuid(),
@@ -28,10 +39,10 @@ class User {
    * @return {Object<User.id, User.name, User.login>} user object without password property
    */
 
-  static toResponse(user) {
+  static toResponse(user: User): IPublicUser {
     const { id, name, login } = user;
     return { id, name, login };
   }
 }
 
-module.exports = User;
+export { User };
