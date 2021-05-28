@@ -1,11 +1,11 @@
-import User from "../resources/users/user.model";
-import Board from "../resources/boards/board.model";
-import Task from "../resources/tasks/task.model";
+import User from '../resources/users/user.model';
+import Board from '../resources/boards/board.model';
+import Task from '../resources/tasks/task.model';
 
 interface IDB {
   users: Array<User>;
   boards: Array<Board>;
-  tasks: Array<Task>
+  tasks: Array<Task>;
 }
 
 export const DB: IDB = {
@@ -27,11 +27,12 @@ const getAllUsers = async (): Promise<Array<User>> => [...DB.users];
  * @returns {Promise<User>} Promise object represents the user
  */
 
-const getUser = async (id: string): Promise<User> => DB.users.find((user) => user.id === id);
+const getUser = async (id: string): Promise<User> =>
+  DB.users.find((user) => user.id === id);
 
 /**
  * Returns the created user
- * @param {User} board new user data 
+ * @param {User} board new user data
  * @returns {Promise<User>} Promise object represents the created user
  */
 
@@ -89,11 +90,12 @@ const getAllBoards = async (): Promise<Array<Board>> => [...DB.boards];
  * @returns {Promise<Board>} Promise object represents the board
  */
 
-const getBoard = async (id: string): Promise<Board> => DB.boards.find((board) => board.id === id);
+const getBoard = async (id: string): Promise<Board> =>
+  DB.boards.find((board) => board.id === id);
 
 /**
  * Returns the created board
- * @param {Board} board new board data 
+ * @param {Board} board new board data
  * @returns {Promise<Board>} Promise object represents the created board
  */
 
@@ -153,11 +155,12 @@ const getAllTasks = async (): Promise<Array<Task>> => [...DB.tasks];
  * @returns {Promise<Task>} Promise object represents the task
  */
 
-const getTask = async (id: string): Promise<Task> => DB.tasks.find((task) => task.id === id);
+const getTask = async (id: string): Promise<Task> =>
+  DB.tasks.find((task) => task.id === id);
 
 /**
  * Returns the created task
- * @param {Task} board new task data 
+ * @param {Task} board new task data
  * @returns {Promise<Task>} Promise object represents the created task
  */
 
@@ -244,4 +247,4 @@ export {
   deleteTask,
   unasignTasks,
   deleteTasks,
-}
+};

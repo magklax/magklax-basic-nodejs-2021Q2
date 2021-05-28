@@ -1,11 +1,10 @@
-import Task from "./task.model";
-import * as tasksRepo from "./task.memory.repository";
+import Task from './task.model';
+import * as tasksRepo from './task.memory.repository';
 
 /**
  * Returns the array of tasks
  * @returns {Promise<Array<Task>} Promise object represents the array of all tasks
  */
-
 
 const getAll = (): Promise<Array<Task>> => tasksRepo.getAll();
 
@@ -19,7 +18,7 @@ const getById = (id: string): Promise<Task> => tasksRepo.getById(id);
 
 /**
  * Returns the created task
- * @param {Object} task new task data 
+ * @param {Object} task new task data
  * @returns {Promise<Task>} Promise object represents the created task
  */
 
@@ -32,7 +31,8 @@ const create = (task: Task): Promise<Task> => tasksRepo.create(task);
  * @returns {Promise<Task>} Promise object represents the updated task
  */
 
-const updateById = (id: string, updatedTask: Task): Promise<Task> => tasksRepo.updateById(id, updatedTask);
+const updateById = (id: string, updatedTask: Task): Promise<Task> =>
+  tasksRepo.updateById(id, updatedTask);
 
 /**
  * Returns the deleted task

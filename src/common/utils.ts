@@ -4,7 +4,7 @@
  * @param {string} name string argument that will be shown in error message
  * @param {string} id string argument that will be shown in error message
  * @returns {Void} returns undefined
- * 
+ *
  */
 
 const errorHandler = (item: string, id: string, name: string): void => {

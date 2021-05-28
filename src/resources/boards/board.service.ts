@@ -1,5 +1,5 @@
 import Board from './board.model';
-import * as boardsRepo from './board.memory.repository'
+import * as boardsRepo from './board.memory.repository';
 
 /**
  * Returns the array of boards
@@ -18,7 +18,7 @@ const getById = (id: string): Promise<Board> => boardsRepo.getById(id);
 
 /**
  * Returns the created board
- * @param {Board} board new board data 
+ * @param {Board} board new board data
  * @returns {Promise<Board>} Promise object represents the created board
  */
 
@@ -35,10 +35,10 @@ const updateById = (id: string, updatedBoard: Board): Promise<Board> =>
   boardsRepo.updateById(id, updatedBoard);
 
 /**
-* Returns the deleted board
-* @param {string} id board id to delete
-* @returns {Promise<Board>} Promise object represents the deleted board
-*/
+ * Returns the deleted board
+ * @param {string} id board id to delete
+ * @returns {Promise<Board>} Promise object represents the deleted board
+ */
 
 const deleteById = (id: string): Promise<Board> => boardsRepo.deleteById(id);
 

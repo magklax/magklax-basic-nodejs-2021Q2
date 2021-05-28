@@ -1,6 +1,12 @@
-import errorHandler from "../../common/utils";
-import Task from "./task.model";
-import { getAllTasks, getTask, createTask, updateTask, deleteTask } from '../../common/inMemoryDB';
+import errorHandler from '../../common/utils';
+import Task from './task.model';
+import {
+  getAllTasks,
+  getTask,
+  createTask,
+  updateTask,
+  deleteTask,
+} from '../../common/inMemoryDB';
 
 /**
  * Returns the array of tasks
@@ -25,7 +31,7 @@ const getById = async (id: string): Promise<Task> => {
 
 /**
  * Returns the created task
- * @param {Task} task new task data 
+ * @param {Task} task new task data
  * @returns {Promise<Task>} Promise object represents the created task
  */
 

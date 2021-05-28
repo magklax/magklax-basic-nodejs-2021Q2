@@ -1,5 +1,5 @@
-import * as usersRepo from "./user.memory.repository";
-import User from "./user.model";
+import * as usersRepo from './user.memory.repository';
+import User from './user.model';
 
 /**
  * Returns the array of users
@@ -18,7 +18,7 @@ const getById = (id: string): Promise<User> => usersRepo.getById(id);
 
 /**
  * Returns the created user
- * @param {User} board new user data 
+ * @param {User} board new user data
  * @returns {Promise<User>} Promise object represents the created user
  */
 
@@ -31,7 +31,8 @@ const create = (user: User): Promise<User> => usersRepo.create(user);
  * @returns {Promise<User>} Promise object represents the updated user
  */
 
-const updateById = (id: string, updatedUser: User): Promise<User> => usersRepo.updateById(id, updatedUser);
+const updateById = (id: string, updatedUser: User): Promise<User> =>
+  usersRepo.updateById(id, updatedUser);
 
 /**
  * Returns the deleted task
@@ -41,4 +42,4 @@ const updateById = (id: string, updatedUser: User): Promise<User> => usersRepo.u
 
 const deleteById = (id: string): Promise<User> => usersRepo.deleteById(id);
 
-export { getAll, getById, create, updateById, deleteById }
+export { getAll, getById, create, updateById, deleteById };

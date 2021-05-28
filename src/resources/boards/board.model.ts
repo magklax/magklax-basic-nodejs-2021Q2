@@ -3,19 +3,21 @@ import { v4 as uuid } from 'uuid';
 /** Class representing a user board. */
 class Board {
   /**
- * Create board
- * @property {string} id - board id
- * @property {string} title - board title
- * @property {Array<{id: string, title: string, order: number}>} columns - array of board columns
- */
+   * Create board
+   * @property {string} id - board id
+   * @property {string} title - board title
+   * @property {Array<{id: string, title: string, order: number}>} columns - array of board columns
+   */
 
   id: string;
+
   title: string;
+
   columns: Array<{
     id: string;
     title: string;
     order: number;
-  }>
+  }>;
 
   constructor({
     id = uuid(),
@@ -34,10 +36,10 @@ class Board {
   }
 
   /**
- * Return board object
- * @param {Board} board - created board object
- * @return {Board} board object 
- */
+   * Return board object
+   * @param {Board} board - created board object
+   * @return {Board} board object
+   */
 
   static toResponse(board: Board): Board {
     const { id, title, columns } = board;

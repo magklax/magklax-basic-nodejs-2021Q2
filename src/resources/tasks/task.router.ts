@@ -1,12 +1,11 @@
 import { Request, Router } from 'express';
-import Task from "./task.model";
-
-const tasksService = require('./task.service');
+import Task from './task.model';
+import * as tasksService from './task.service';
 
 const router = Router({ mergeParams: true });
 
 interface RequestParams extends Request {
-  reportId: string
+  reportId: string;
 }
 
 router.route('/').get(async (req, res) => {

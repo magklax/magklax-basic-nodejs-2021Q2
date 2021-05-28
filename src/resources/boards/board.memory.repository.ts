@@ -1,13 +1,20 @@
-import errorHandler from "../../common/utils";
+import errorHandler from '../../common/utils';
 import Board from './board.model';
-import { getAllBoards, getBoard, createBoard, updateBoard, deleteBoard, deleteTasks } from '../../common/inMemoryDB';
+import {
+  getAllBoards,
+  getBoard,
+  createBoard,
+  updateBoard,
+  deleteBoard,
+  deleteTasks,
+} from '../../common/inMemoryDB';
 
 /**
  * Returns the array of boards
  * @returns {Promise<Array<Board>>} Promise object represents the array of all boards
  */
 
-const getAll = async () => getAllBoards();
+const getAll = async (): Promise<Array<Board>> => getAllBoards();
 
 /**
  * Returns the board by id
@@ -25,7 +32,7 @@ const getById = async (id: string): Promise<Board> => {
 
 /**
  * Returns the created board
- * @param {Board} board new board data 
+ * @param {Board} board new board data
  * @returns {Promise<Board>} Promise object represents the created board
  */
 

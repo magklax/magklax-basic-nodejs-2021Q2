@@ -1,6 +1,13 @@
 import errorHandler from '../../common/utils';
 import User from './user.model';
-import { getAllUsers, getUser, createUser, updateUser, deleteUser, unasignTasks } from '../../common/inMemoryDB';
+import {
+  getAllUsers,
+  getUser,
+  createUser,
+  updateUser,
+  deleteUser,
+  unasignTasks,
+} from '../../common/inMemoryDB';
 
 /**
  * Returns the array of users
