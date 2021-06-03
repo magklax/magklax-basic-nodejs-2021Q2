@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "target": "es2020",
-    "module": "es2020",
+    "module": "commonjs",
     "allowJs": false,
     "outDir": "./build",
     "rootDir": "./src",
@@ -18,12 +18,8 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
   },
-  "exclude": [
-    "node_modules/"
-  ],
-  "include": [
-    "./src/**/*.ts"
-  ]
+  "exclude": ["node_modules/"],
+  "include": ["./src/**/*.ts"]
 }

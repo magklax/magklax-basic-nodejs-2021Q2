@@ -1,19 +1,7 @@
 import { v4 as uuid } from 'uuid';
 
-/** Class representing a task model. */
 class Task {
-  /**
-   * Create task
-   * @property {string} id - task id
-   * @property {string} title - task title
-   * @property {number} order - task order
-   * @property {string} description - task description
-   * @property {string} userId - task user id
-   * @property {string} boardId - task boar id
-   * @property {string} columnId - task column id
-   */
-
-  id: string;
+  id: string | undefined;
 
   title: string;
 
@@ -21,9 +9,9 @@ class Task {
 
   description: string;
 
-  userId: string;
+  userId: string | null;
 
-  boardId: string;
+  boardId: string | undefined;
 
   columnId: string;
 
@@ -44,12 +32,6 @@ class Task {
     this.boardId = boardId;
     this.columnId = columnId;
   }
-
-  /**
-   * Return task object
-   * @param {Task} task - created task object
-   * @return {Task} task object
-   */
 
   static toResponse(task: Task): Task {
     const { id, title, order, description, userId, boardId, columnId } = task;

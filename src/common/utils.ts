@@ -1,3 +1,7 @@
+import Board from "../resources/boards/board.model";
+import Task from "../resources/tasks/task.model";
+import User from "../resources/users/user.model";
+
 /**
  * Throws error message
  * @param {string} item string argument that will be shown in error message
@@ -7,7 +11,8 @@
  *
  */
 
-const errorHandler = (item: string, id: string, name: string): void => {
+
+const errorHandler = (item: User | Board | Task | null | undefined, id: string, name: string): void => {
   if (!item) {
     throw new Error(`The ${name} with id: ${id} has not been found`);
   }

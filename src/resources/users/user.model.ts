@@ -6,15 +6,8 @@ interface IPublicUser {
   login: string;
 }
 
-/** Class representing a user model. */
 class User {
-  /**
-   * Create user
-   * @property {string} id - user id
-   * @property {string} name - user name
-   * @property {string} login - user login
-   * @property {string} password - user password
-   */
+
 
   id: string;
 
@@ -35,12 +28,6 @@ class User {
     this.login = login;
     this.password = password;
   }
-
-  /**
-   * Return user object
-   * @param {User} user - created user object
-   * @return {IPublicUser} user object without password property
-   */
 
   static toResponse(user: User): IPublicUser {
     const { id, name, login } = user;

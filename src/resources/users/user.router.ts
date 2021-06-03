@@ -2,23 +2,25 @@ import { Router } from 'express';
 import User from './user.model';
 import * as usersService from './user.service';
 
-const router = Router();
+const userRouter = Router();
 
-router.route('/').get(async (req, res) => {
+userRouter.route('/').get(async (_req, res) => {
   const users = await usersService.getAll();
   res.json(users.map(User.toResponse));
 });
 
-router.route('/:id').get(async (req, res) => {
+userRouter.route('/:id').get(async (req, res) => {
   try {
     const user = await usersService.getById(req.params.id);
-    res.json(User.toResponse(user));
+    if (user) {
+      res.json(User.toResponse(user));
+    }
   } catch (err) {
     res.status(404).send(err.message);
   }
 });
 
-router.route('/').post(async (req, res) => {
+userRouter.route('/').post(async (req, res) => {
   const user = await usersService.create(
     new User({
       name: req.body.name,
@@ -30,7 +32,7 @@ router.route('/').post(async (req, res) => {
   res.status(user ? 201 : 400).json(User.toResponse(user));
 });
 
-router.route('/:id').put(async (req, res) => {
+userRouter.route('/:id').put(async (req, res) => {
   try {
     const updatedUser = {
       id: req.params.id,
@@ -40,19 +42,23 @@ router.route('/:id').put(async (req, res) => {
     };
 
     const user = await usersService.updateById(req.params.id, updatedUser);
-    res.json(User.toResponse(user));
+    if (user) {
+      res.json(User.toResponse(user));
+    }
   } catch (err) {
     res.status(404).send(err.message);
   }
 });
 
-router.route('/:id').delete(async (req, res) => {
+userRouter.route('/:id').delete(async (req, res) => {
   try {
     const user = await usersService.deleteById(req.params.id);
-    res.json(User.toResponse(user));
+    if (user) {
+      res.json(User.toResponse(user));
+    }
   } catch (err) {
     res.status(404).send(err.message);
   }
 });
 
-export default router;
+export default userRouter;
