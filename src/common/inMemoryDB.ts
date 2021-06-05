@@ -14,32 +14,40 @@ export const DB: IDB = {
   tasks: [],
 };
 
-const getAllUsers = async () => [...DB.users];
+const getAllUsers = async (): Promise<Array<User>> => [...DB.users];
 
-const getUser = async (id: string): Promise<User | undefined> =>
-  DB.users.find((user) => user.id === id);
+const getUser = async (id: string): Promise<User> => {
+  const foundUser = DB.users.find((user) => user.id === id);
+
+  if (!foundUser) {
+    throw new Error(`The user with id: ${id} has not been found`);
+  }
+
+  return foundUser;
+};
 
 const createUser = async (user: User): Promise<User> => {
   DB.users.push(user);
+
   return user;
 };
 
-const updateUser = async (id: string, updatedUser: User) => {
+const updateUser = async (id: string, updatedUser: User): Promise<User> => {
   const index = DB.users.findIndex((user) => user.id === id);
 
   if (index < 0) {
-    return null;
+    throw new Error(`The user with id: ${id} has not been found`);
   }
 
   DB.users[index] = updatedUser;
   return updatedUser;
 };
 
-const deleteUser = async (id: string) => {
+const deleteUser = async (id: string): Promise<User> => {
   const deletedUser = DB.users.find((user) => user.id === id);
 
   if (!deletedUser) {
-    return null;
+    throw new Error(`The user with id: ${id} has not been found`);
   }
 
   DB.users = DB.users.filter((user) => user.id !== id);
@@ -47,26 +55,30 @@ const deleteUser = async (id: string) => {
   return deletedUser;
 };
 
-const getAllBoards = async () => [...DB.boards];
+// boards
+const getAllBoards = async (): Promise<Array<Board>> => [...DB.boards];
 
+const getBoard = async (id: string): Promise<Board> => {
+  const foundBoard = DB.boards.find((board) => board.id === id);
 
-const getBoard = async (id: string) =>
-  DB.boards.find((board) => board.id === id);
+  if (!foundBoard) {
+    throw new Error(`The board with id: ${id} has not been found`);
+  }
 
+  return foundBoard;
+};
 
-
-const createBoard = async (board: Board) => {
+const createBoard = async (board: Board): Promise<Board> => {
   DB.boards.push(board);
 
   return board;
 };
 
-
-const updateBoard = async (id: string, updatedBoard: Board) => {
+const updateBoard = async (id: string, updatedBoard: Board): Promise<Board> => {
   const index = DB.boards.findIndex((board) => board.id === id);
 
   if (index < 0) {
-    return null;
+    throw new Error(`The board with id: ${id} has not been found`);
   }
 
   DB.boards[index] = updatedBoard;
@@ -74,11 +86,11 @@ const updateBoard = async (id: string, updatedBoard: Board) => {
   return updatedBoard;
 };
 
-const deleteBoard = async (id: string) => {
+const deleteBoard = async (id: string): Promise<Board> => {
   const deletedBoard = DB.boards.find((board) => board.id === id);
 
   if (!deletedBoard) {
-    return null;
+    throw new Error(`The board with id: ${id} has not been found`);
   }
 
   DB.boards = DB.boards.filter((board) => board.id !== id);
@@ -86,22 +98,30 @@ const deleteBoard = async (id: string) => {
   return deletedBoard;
 };
 
-const getAllTasks = async () => [...DB.tasks];
+// tasks
+const getAllTasks = async (): Promise<Array<Task>> => [...DB.tasks];
 
-const getTask = async (id: string) =>
-  DB.tasks.find((task) => task.id === id);
+const getTask = async (id: string): Promise<Task> => {
+  const foundTask = DB.tasks.find((task) => task.id === id);
 
-const createTask = async (task: Task) => {
+  if (!foundTask) {
+    throw new Error(`The task with id: ${id} has not been found`);
+  }
+
+  return foundTask;
+};
+
+const createTask = async (task: Task): Promise<Task> => {
   DB.tasks.push(task);
 
   return task;
 };
 
-const updateTask = async (id: string, updatedTask: Task) => {
+const updateTask = async (id: string, updatedTask: Task): Promise<Task> => {
   const index = DB.tasks.findIndex((task) => task.id === id);
 
   if (!index) {
-    return null;
+    throw new Error(`The task with id: ${id} has not been found`);
   }
 
   DB.tasks[index] = updatedTask;
@@ -109,11 +129,11 @@ const updateTask = async (id: string, updatedTask: Task) => {
   return updatedTask;
 };
 
-const deleteTask = async (id: string) => {
+const deleteTask = async (id: string): Promise<Task> => {
   const deletedTask = DB.tasks.find((task) => task.id === id);
 
   if (!deletedTask) {
-    return null;
+    throw new Error(`The task with id: ${id} has not been found`);
   }
 
   DB.tasks = DB.tasks.filter((task) => task.id !== id);
@@ -121,25 +141,13 @@ const deleteTask = async (id: string) => {
   return deletedTask;
 };
 
-/**
- * Returns undefined
- * @param {string} userId user id to unasign all tasks
- * @returns {Promise<void>} Promise object represents undefined
- */
-
-const unasignTasks = async (userId: string) => {
+const unasignTasks = async (userId: string): Promise<void> => {
   DB.tasks = DB.tasks.map((task) =>
     task.userId === userId ? { ...task, userId: null } : { ...task }
   );
 };
 
-/**
- * Returns undefined
- * @param {string} boardId board id to delete all tasks
- * @returns {Promise<void>} Promise object represents undefined
- */
-
-const deleteTasks = async (boardId: string) => {
+const deleteTasks = async (boardId: string): Promise<void> => {
   DB.tasks = DB.tasks.filter((task) => task.boardId !== boardId);
 };
 

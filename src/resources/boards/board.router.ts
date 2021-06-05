@@ -12,9 +12,7 @@ boardRouter.route('/').get(async (_req, res) => {
 boardRouter.route('/:id').get(async (req, res) => {
   try {
     const board = await boardsService.getById(req.params.id);
-    if (board) {
-      res.json(Board.toResponse(board));
-    }
+    res.json(Board.toResponse(board));
   } catch (err) {
     res.status(404).send(err.message);
   }
@@ -28,7 +26,7 @@ boardRouter.route('/').post(async (req, res) => {
     })
   );
 
-  res.status(board ? 201 : 400).json(Board.toResponse(board));
+  res.status(201).json(Board.toResponse(board));
 });
 
 boardRouter.route('/:id').put(async (req, res) => {
@@ -40,9 +38,7 @@ boardRouter.route('/:id').put(async (req, res) => {
     };
 
     const board = await boardsService.updateById(req.params.id, updatedBoard);
-    if (board) {
-      res.json(Board.toResponse(board));
-    }
+    res.json(Board.toResponse(board));
   } catch (err) {
     res.status(404).send(err.message);
   }
@@ -51,9 +47,7 @@ boardRouter.route('/:id').put(async (req, res) => {
 boardRouter.route('/:id').delete(async (req, res) => {
   try {
     const board = await boardsService.deleteById(req.params.id);
-    if (board) {
-      res.json(Board.toResponse(board));
-    }
+    res.json(Board.toResponse(board));
   } catch (err) {
     res.status(404).send(err.message);
   }

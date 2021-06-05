@@ -28,8 +28,7 @@ class Board {
   }
 
   static toResponse(board: Board): Board {
-    const { id, title, columns } = board;
-    return { id, title, columns };
+    return { ...board };
   }
 }
 

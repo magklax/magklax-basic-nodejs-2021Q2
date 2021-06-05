@@ -1,4 +1,3 @@
-import errorHandler from '../../common/utils';
 import Board from './board.model';
 import {
   getAllBoards,
@@ -9,35 +8,17 @@ import {
   deleteTasks,
 } from '../../common/inMemoryDB';
 
-const getAll = async () => getAllBoards();
+export const getAll = async (): Promise<Array<Board>> => getAllBoards();
 
-const getById = async (id: string) => {
-  const board = await getBoard(id);
-
-  errorHandler(board, id, 'board');
-
-  return board;
-};
+export const getById = async (id: string): Promise<Board> => getBoard(id);
 
 
-const create = async (board: Board) => createBoard(board);
+export const create = async (board: Board): Promise<Board> => createBoard(board);
 
-const updateById = async (id: string, updatedBoard: Board) => {
-  const board = await updateBoard(id, updatedBoard);
+export const updateById = async (id: string, updatedBoard: Board): Promise<Board> => updateBoard(id, updatedBoard);
 
-  errorHandler(board, id, 'board');
-
-  return board;
-};
-
-
-const deleteById = async (id: string) => {
+export const deleteById = async (id: string): Promise<Board> => {
   const board = await deleteBoard(id);
   deleteTasks(id);
-
-  errorHandler(board, id, 'board');
-
   return board;
 };
-
-export { getAll, getById, create, updateById, deleteById };

@@ -12,9 +12,7 @@ userRouter.route('/').get(async (_req, res) => {
 userRouter.route('/:id').get(async (req, res) => {
   try {
     const user = await usersService.getById(req.params.id);
-    if (user) {
-      res.json(User.toResponse(user));
-    }
+    res.json(User.toResponse(user));
   } catch (err) {
     res.status(404).send(err.message);
   }
@@ -29,7 +27,7 @@ userRouter.route('/').post(async (req, res) => {
     })
   );
 
-  res.status(user ? 201 : 400).json(User.toResponse(user));
+  res.status(201).json(User.toResponse(user));
 });
 
 userRouter.route('/:id').put(async (req, res) => {
@@ -40,11 +38,8 @@ userRouter.route('/:id').put(async (req, res) => {
       login: req.body.login,
       password: req.body.password,
     };
-
     const user = await usersService.updateById(req.params.id, updatedUser);
-    if (user) {
-      res.json(User.toResponse(user));
-    }
+    res.json(User.toResponse(user));
   } catch (err) {
     res.status(404).send(err.message);
   }
@@ -53,9 +48,7 @@ userRouter.route('/:id').put(async (req, res) => {
 userRouter.route('/:id').delete(async (req, res) => {
   try {
     const user = await usersService.deleteById(req.params.id);
-    if (user) {
-      res.json(User.toResponse(user));
-    }
+    res.json(User.toResponse(user));
   } catch (err) {
     res.status(404).send(err.message);
   }
