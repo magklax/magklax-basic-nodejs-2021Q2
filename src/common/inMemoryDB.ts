@@ -1,4 +1,14 @@
-const DB = {
+import User from '../resources/users/user.model';
+import Board from '../resources/boards/board.model';
+import Task from '../resources/tasks/task.model';
+
+interface IDB {
+  users: Array<User>;
+  boards: Array<Board>;
+  tasks: Array<Task>;
+}
+
+export const DB: IDB = {
   users: [],
   boards: [],
   tasks: [],
@@ -6,14 +16,15 @@ const DB = {
 
 const getAllUsers = async () => [...DB.users];
 
-const getUser = async (id) => DB.users.find((user) => user.id === id);
+const getUser = async (id: string): Promise<User | undefined> =>
+  DB.users.find((user) => user.id === id);
 
-const createUser = async (user) => {
+const createUser = async (user: User): Promise<User> => {
   DB.users.push(user);
   return user;
 };
 
-const updateUser = async (id, updatedUser) => {
+const updateUser = async (id: string, updatedUser: User) => {
   const index = DB.users.findIndex((user) => user.id === id);
 
   if (index < 0) {
@@ -24,7 +35,7 @@ const updateUser = async (id, updatedUser) => {
   return updatedUser;
 };
 
-const deleteUser = async (id) => {
+const deleteUser = async (id: string) => {
   const deletedUser = DB.users.find((user) => user.id === id);
 
   if (!deletedUser) {
@@ -38,15 +49,20 @@ const deleteUser = async (id) => {
 
 const getAllBoards = async () => [...DB.boards];
 
-const getBoard = async (id) => DB.boards.find((board) => board.id === id);
 
-const createBoard = async (board) => {
+const getBoard = async (id: string) =>
+  DB.boards.find((board) => board.id === id);
+
+
+
+const createBoard = async (board: Board) => {
   DB.boards.push(board);
 
   return board;
 };
 
-const updateBoard = async (id, updatedBoard) => {
+
+const updateBoard = async (id: string, updatedBoard: Board) => {
   const index = DB.boards.findIndex((board) => board.id === id);
 
   if (index < 0) {
@@ -58,7 +74,7 @@ const updateBoard = async (id, updatedBoard) => {
   return updatedBoard;
 };
 
-const deleteBoard = async (id) => {
+const deleteBoard = async (id: string) => {
   const deletedBoard = DB.boards.find((board) => board.id === id);
 
   if (!deletedBoard) {
@@ -72,15 +88,16 @@ const deleteBoard = async (id) => {
 
 const getAllTasks = async () => [...DB.tasks];
 
-const getTask = async (id) => DB.tasks.find((task) => task.id === id);
+const getTask = async (id: string) =>
+  DB.tasks.find((task) => task.id === id);
 
-const createTask = async (task) => {
+const createTask = async (task: Task) => {
   DB.tasks.push(task);
 
   return task;
 };
 
-const updateTask = async (id, updatedTask) => {
+const updateTask = async (id: string, updatedTask: Task) => {
   const index = DB.tasks.findIndex((task) => task.id === id);
 
   if (!index) {
@@ -92,7 +109,7 @@ const updateTask = async (id, updatedTask) => {
   return updatedTask;
 };
 
-const deleteTask = async (id) => {
+const deleteTask = async (id: string) => {
   const deletedTask = DB.tasks.find((task) => task.id === id);
 
   if (!deletedTask) {
@@ -104,17 +121,29 @@ const deleteTask = async (id) => {
   return deletedTask;
 };
 
-const unasignTasks = async (userId) => {
+/**
+ * Returns undefined
+ * @param {string} userId user id to unasign all tasks
+ * @returns {Promise<void>} Promise object represents undefined
+ */
+
+const unasignTasks = async (userId: string) => {
   DB.tasks = DB.tasks.map((task) =>
     task.userId === userId ? { ...task, userId: null } : { ...task }
   );
 };
 
-const deleteTasks = async (boardId) => {
+/**
+ * Returns undefined
+ * @param {string} boardId board id to delete all tasks
+ * @returns {Promise<void>} Promise object represents undefined
+ */
+
+const deleteTasks = async (boardId: string) => {
   DB.tasks = DB.tasks.filter((task) => task.boardId !== boardId);
 };
 
-module.exports = {
+export {
   getAllUsers,
   getUser,
   createUser,

@@ -1,6 +1,22 @@
-const uuid = require('uuid').v4;
+import { v4 as uuid } from 'uuid';
+
+interface IPublicUser {
+  id: string;
+  name: string;
+  login: string;
+}
 
 class User {
+
+
+  id: string;
+
+  name: string;
+
+  login: string;
+
+  password: string;
+
   constructor({
     id = uuid(),
     name = 'USER',
@@ -13,10 +29,10 @@ class User {
     this.password = password;
   }
 
-  static toResponse(user) {
+  static toResponse(user: User): IPublicUser {
     const { id, name, login } = user;
     return { id, name, login };
   }
 }
 
-module.exports = User;
+export default User;
