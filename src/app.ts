@@ -26,8 +26,6 @@ app.use('/', (req, res, next) => {
   next();
 });
 
-
-
 // app.use('/broke', (_req, _res, _next) => {
 //   throw Error('Oops');
 // });
@@ -39,23 +37,15 @@ boardRouter.use('/:boardId/tasks', taskRouter);
 app.use(errorMiddleware);
 
 process.on('uncaughtException', (error) => {
-  logger.error(`captured error: ${error.message}`);
-
-  setTimeout(() => {
+  logger.error(`Сaptured error: ${error.message}`, () => {
     process.exit(1);
-  }, 1000);
+  });
 });
 
 // throw Error('Oops!');
 
-process.on('unhandledRejection', (reason, promise) => {
-  logger.error(
-    `Unhandled rejection detected: ${reason} 'Unhandled Rejection at:' ${promise} `
-  );
-
-  setTimeout(() => {
-    process.exit(1);
-  }, 1000);
+process.on('unhandledRejection', (error, promise) => {
+  logger.error(`Unhandled rejection detected: ${error}`, promise);
 });
 
 // Promise.reject(Error('Oops!'));
