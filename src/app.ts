@@ -7,7 +7,7 @@ import boardRouter from './resources/boards/board.router';
 import taskRouter from './resources/tasks/task.router';
 import { requestLogger } from './middleware/request-logger';
 import { errorMiddleware } from './middleware/error-middleware';
-import { logger } from './winston';
+import { logger } from './common/logger';
 
 const app = express();
 const swaggerDocument = YAML.load(path.join(__dirname, '../doc/api.yaml'));
@@ -26,9 +26,9 @@ app.use('/', (req, res, next) => {
   next();
 });
 
-// app.use('/broke', (_req, _res, _next) => {
-//   throw Error('Oops');
-// });
+app.use('/broke', (_req, _res, _next) => {
+  throw Error('Oops');
+});
 
 app.use('/users', userRouter);
 app.use('/boards', boardRouter);
