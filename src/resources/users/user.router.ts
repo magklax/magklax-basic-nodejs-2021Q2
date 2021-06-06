@@ -2,14 +2,14 @@ import { Router } from 'express';
 import User from './user.model';
 import * as usersService from './user.service';
 
-const userRouter = Router();
+const router = Router();
 
-userRouter.route('/').get(async (_req, res) => {
+router.route('/').get(async (_req, res) => {
   const users = await usersService.getAll();
   res.json(users.map(User.toResponse));
 });
 
-userRouter.route('/:id').get(async (req, res) => {
+router.route('/:id').get(async (req, res) => {
   try {
     const user = await usersService.getById(req.params.id);
     res.json(User.toResponse(user));
@@ -18,7 +18,7 @@ userRouter.route('/:id').get(async (req, res) => {
   }
 });
 
-userRouter.route('/').post(async (req, res) => {
+router.route('/').post(async (req, res) => {
   const user = await usersService.create(
     new User({
       name: req.body.name,
@@ -30,7 +30,7 @@ userRouter.route('/').post(async (req, res) => {
   res.status(201).json(User.toResponse(user));
 });
 
-userRouter.route('/:id').put(async (req, res) => {
+router.route('/:id').put(async (req, res) => {
   try {
     const updatedUser = {
       id: req.params.id,
@@ -45,7 +45,7 @@ userRouter.route('/:id').put(async (req, res) => {
   }
 });
 
-userRouter.route('/:id').delete(async (req, res) => {
+router.route('/:id').delete(async (req, res) => {
   try {
     const user = await usersService.deleteById(req.params.id);
     res.json(User.toResponse(user));
@@ -54,4 +54,4 @@ userRouter.route('/:id').delete(async (req, res) => {
   }
 });
 
-export default userRouter;
+export default router;
