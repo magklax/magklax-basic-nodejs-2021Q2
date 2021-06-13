@@ -1,23 +1,13 @@
 import Board from './board.model';
 import * as boardsRepo from './board.memory.repository';
 
+export const getAll = (): Promise<Array<Board>> => boardsRepo.getAll();
 
+export const getById = (id: string): Promise<Board> => boardsRepo.getById(id);
 
-const getAll = (): Promise<Array<Board>> => boardsRepo.getAll();
+export const create = (board: Board): Promise<Board> => boardsRepo.create(board);
 
-
-
-const getById = (id: string) => boardsRepo.getById(id);
-
-
-
-const create = (board: Board) => boardsRepo.create(board);
-
-
-const updateById = (id: string, updatedBoard: Board) =>
+export const updateById = (id: string, updatedBoard: Board): Promise<Board> =>
   boardsRepo.updateById(id, updatedBoard);
 
-
-const deleteById = (id: string) => boardsRepo.deleteById(id);
-
-export { getAll, getById, create, updateById, deleteById };
+export const deleteById = (id: string): Promise<Board> => boardsRepo.deleteById(id);

@@ -2,25 +2,23 @@ import { Router } from 'express';
 import User from './user.model';
 import * as usersService from './user.service';
 
-const userRouter = Router();
+const router = Router();
 
-userRouter.route('/').get(async (_req, res) => {
+router.route('/').get(async (_req, res) => {
   const users = await usersService.getAll();
   res.json(users.map(User.toResponse));
 });
 
-userRouter.route('/:id').get(async (req, res) => {
+router.route('/:id').get(async (req, res) => {
   try {
     const user = await usersService.getById(req.params.id);
-    if (user) {
-      res.json(User.toResponse(user));
-    }
+    res.json(User.toResponse(user));
   } catch (err) {
     res.status(404).send(err.message);
   }
 });
 
-userRouter.route('/').post(async (req, res) => {
+router.route('/').post(async (req, res) => {
   const user = await usersService.create(
     new User({
       name: req.body.name,
@@ -29,10 +27,10 @@ userRouter.route('/').post(async (req, res) => {
     })
   );
 
-  res.status(user ? 201 : 400).json(User.toResponse(user));
+  res.status(201).json(User.toResponse(user));
 });
 
-userRouter.route('/:id').put(async (req, res) => {
+router.route('/:id').put(async (req, res) => {
   try {
     const updatedUser = {
       id: req.params.id,
@@ -40,25 +38,20 @@ userRouter.route('/:id').put(async (req, res) => {
       login: req.body.login,
       password: req.body.password,
     };
-
     const user = await usersService.updateById(req.params.id, updatedUser);
-    if (user) {
-      res.json(User.toResponse(user));
-    }
+    res.json(User.toResponse(user));
   } catch (err) {
     res.status(404).send(err.message);
   }
 });
 
-userRouter.route('/:id').delete(async (req, res) => {
+router.route('/:id').delete(async (req, res) => {
   try {
     const user = await usersService.deleteById(req.params.id);
-    if (user) {
-      res.json(User.toResponse(user));
-    }
+    res.json(User.toResponse(user));
   } catch (err) {
     res.status(404).send(err.message);
   }
 });
 
-export default userRouter;
+export default router;

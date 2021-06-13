@@ -8,7 +8,6 @@ interface IPublicUser {
 
 class User {
 
-
   id: string;
 
   name: string;

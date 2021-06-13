@@ -1,4 +1,3 @@
-import errorHandler from '../../common/utils';
 import Task from './task.model';
 import {
   getAllTasks,
@@ -8,34 +7,14 @@ import {
   deleteTask,
 } from '../../common/inMemoryDB';
 
-const getAll = async () => getAllTasks();
+const getAll = async (): Promise<Array<Task>> => getAllTasks();
 
-const getById = async (id: string) => {
-  const task = await getTask(id);
+const getById = async (id: string): Promise<Task> => getTask(id);
 
-  errorHandler(task, id, 'task');
+const create = async (task: Task): Promise<Task> => createTask(task);
 
-  return task;
-};
+const updateById = async (id: string, updatedTask: Task): Promise<Task> => updateTask(id, updatedTask);
 
-const create = async (task: Task) => createTask(task);
-
-
-const updateById = async (id: string, updatedTask: Task) => {
-  const task = await updateTask(id, updatedTask);
-
-  errorHandler(task, id, 'task');
-
-  return task;
-};
-
-
-const deleteById = async (id: string) => {
-  const task = await deleteTask(id);
-
-  errorHandler(task, id, 'task');
-
-  return task;
-};
+const deleteById = async (id: string): Promise<Task> => deleteTask(id);
 
 export { getAll, getById, create, updateById, deleteById };

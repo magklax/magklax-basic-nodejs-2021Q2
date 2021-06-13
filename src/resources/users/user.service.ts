@@ -1,15 +1,13 @@
 import * as usersRepo from './user.memory.repository';
 import User from './user.model';
 
-const getAll = () => usersRepo.getAll();
+export const getAll = (): Promise<Array<User>> => usersRepo.getAll();
 
-const getById = (id: string) => usersRepo.getById(id);
+export const getById = (id: string): Promise<User> => usersRepo.getById(id);
 
-const create = (user: User) => usersRepo.create(user);
+export const create = (user: User): Promise<User> => usersRepo.create(user);
 
-const updateById = (id: string, updatedUser: User) =>
+export const updateById = (id: string, updatedUser: User): Promise<User> =>
   usersRepo.updateById(id, updatedUser);
 
-const deleteById = (id: string) => usersRepo.deleteById(id);
-
-export { getAll, getById, create, updateById, deleteById };
+export const deleteById = (id: string): Promise<User> => usersRepo.deleteById(id);

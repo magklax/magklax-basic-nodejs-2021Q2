@@ -1,19 +1,13 @@
 import Task from './task.model';
 import * as tasksRepo from './task.memory.repository';
 
-const getAll = () => tasksRepo.getAll();
+export const getAll = (): Promise<Array<Task>> => tasksRepo.getAll();
 
-const getById = (id: string) => tasksRepo.getById(id);
+export const getById = (id: string): Promise<Task> => tasksRepo.getById(id);
 
+export const create = (task: Task): Promise<Task> => tasksRepo.create(task);
 
-const create = (task: Task) => tasksRepo.create(task);
-
-
-
-const updateById = (id: string, updatedTask: Task) =>
+export const updateById = (id: string, updatedTask: Task): Promise<Task> =>
   tasksRepo.updateById(id, updatedTask);
 
-
-const deleteById = (id: string) => tasksRepo.deleteById(id);
-
-export { getAll, getById, create, updateById, deleteById };
+export const deleteById = (id: string): Promise<Task> => tasksRepo.deleteById(id);

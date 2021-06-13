@@ -26,9 +26,7 @@
     }
   },
   "parser": "@typescript-eslint/parser",
-  "plugins": [
-    "@typescript-eslint"
-  ],
+  "plugins": ["@typescript-eslint"],
   "extends": [
     "eslint:recommended",
     "plugin:@typescript-eslint/eslint-recommended",
@@ -43,9 +41,14 @@
     "node/no-unsupported-features/es-syntax": "off",
     "no-underscore-dangle": "off",
     "import/prefer-default-export": "off",
+    "@typescript-eslint/no-unused-vars": "off",
+    "no-unused-vars": "off",
     "no-console": "off",
-    "node/no-missing-import": ["error", {
-      "tryExtensions": [".js", ".ts", ".json", ".node"]
-  }]
+    "node/no-missing-import": [
+      "error",
+      {
+        "tryExtensions": [".js", ".ts", ".json", ".node"]
+      }
+    ]
   }
 }
