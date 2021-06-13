@@ -11,7 +11,8 @@ services:
             - PORT=${PORT}
         restart: unless-stopped
         volumes:
-            - logs:/opt/app/logs
+            - ./logs:/opt/app/logs
+            - ./src:/opt/app/src
         networks:
             - my-net
     postgres:
@@ -35,6 +36,5 @@ networks:
         driver: bridge
 
 volumes:
-    logs:
     postgres_data:
     postgres_logs:
