@@ -1,4 +1,5 @@
 import { Request, Response, Router } from 'express';
+import { StatusCodes } from 'http-status-codes';
 import Task from './task.model';
 import * as tasksService from './task.service';
 
@@ -9,7 +10,7 @@ router.route('/').get(async (_req, res) => {
     const tasks = await tasksService.getAll();
     res.json(tasks.map(Task.toResponse));
   } catch (err) {
-    res.status(404).send(err.message);
+    res.status(StatusCodes.NOT_FOUND).send(err.message);
   }
 });
 
@@ -18,7 +19,7 @@ router.route('/:id').get(async (req, res) => {
     const task = await tasksService.getById(req.params.id);
     res.json(Task.toResponse(task));
   } catch (err) {
-    res.status(404).send(err.message);
+    res.status(StatusCodes.NOT_FOUND).send(err.message);
   }
 });
 
@@ -34,7 +35,7 @@ router.route('/').post(async (req: Request, res: Response) => {
       boardId,
     })
   );
-  res.status(201).json(Task.toResponse(task));
+  res.status(StatusCodes.CREATED).json(Task.toResponse(task));
 });
 
 router.route('/:id').put(async (req: Request, res: Response) => {
@@ -53,7 +54,7 @@ router.route('/:id').put(async (req: Request, res: Response) => {
       const task = await tasksService.updateById(id, updatedTask);
       res.json(Task.toResponse(task));
     } catch (err) {
-      res.status(404).send(err.message);
+      res.status(StatusCodes.NOT_FOUND).send(err.message);
     }
   }
 });
@@ -63,7 +64,7 @@ router.route('/:id').delete(async (req, res) => {
     const task = await tasksService.deleteById(req.params.id);
     res.json(Task.toResponse(task));
   } catch (err) {
-    res.status(404).send(err.message);
+    res.status(StatusCodes.NOT_FOUND).send(err.message);
   }
 });
 

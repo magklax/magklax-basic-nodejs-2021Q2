@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import { StatusCodes } from 'http-status-codes';
 import Board from './board.model';
 import * as boardsService from './board.service';
 
@@ -14,7 +15,7 @@ router.route('/:id').get(async (req, res) => {
     const board = await boardsService.getById(req.params.id);
     res.json(Board.toResponse(board));
   } catch (err) {
-    res.status(404).send(err.message);
+    res.status(StatusCodes.NOT_FOUND).send(err.message);
   }
 });
 
@@ -26,7 +27,7 @@ router.route('/').post(async (req, res) => {
     })
   );
 
-  res.status(201).json(Board.toResponse(board));
+  res.status(StatusCodes.CREATED).json(Board.toResponse(board));
 });
 
 router.route('/:id').put(async (req, res) => {
@@ -40,7 +41,7 @@ router.route('/:id').put(async (req, res) => {
     const board = await boardsService.updateById(req.params.id, updatedBoard);
     res.json(Board.toResponse(board));
   } catch (err) {
-    res.status(404).send(err.message);
+    res.status(StatusCodes.NOT_FOUND).send(err.message);
   }
 });
 
@@ -49,7 +50,7 @@ router.route('/:id').delete(async (req, res) => {
     const board = await boardsService.deleteById(req.params.id);
     res.json(Board.toResponse(board));
   } catch (err) {
-    res.status(404).send(err.message);
+    res.status(StatusCodes.NOT_FOUND).send(err.message);
   }
 });
 
