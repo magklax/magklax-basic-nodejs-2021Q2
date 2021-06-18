@@ -3,4 +3,4 @@ EXPOSE 4000
 WORKDIR /opt/app
 COPY . ./
 RUN npm install
-CMD ["npm", "start"]
+CMD ["npm", "start", "dev"]
