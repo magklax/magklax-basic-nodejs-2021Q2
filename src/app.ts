@@ -42,12 +42,8 @@ process.on('uncaughtException', (error) => {
   });
 });
 
-// throw Error('Oops!');
-
 process.on('unhandledRejection', (error, promise) => {
   logger.error(`Unhandled rejection detected: ${error}`, promise);
 });
-
-// Promise.reject(Error('Oops!'));
 
 export default app;
