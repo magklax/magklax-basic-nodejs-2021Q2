@@ -26,10 +26,6 @@ app.use('/', (req, res, next) => {
   next();
 });
 
-app.use('/broke', (_req, _res, _next) => {
-  throw Error('Oops');
-});
-
 app.use('/users', userRouter);
 app.use('/boards', boardRouter);
 boardRouter.use('/:boardId/tasks', taskRouter);
