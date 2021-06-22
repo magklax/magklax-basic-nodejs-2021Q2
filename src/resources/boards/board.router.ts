@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { StatusCodes } from 'http-status-codes';
-import Board from './board.model';
+import Board from '../../entities/board.entity';
 import * as boardsService from './board.service';
 
 const router = Router();
@@ -20,13 +20,8 @@ router.route('/:id').get(async (req, res) => {
 });
 
 router.route('/').post(async (req, res) => {
-  const board = await boardsService.create(
-    new Board({
-      title: req.body.title,
-      columns: [...req.body.columns],
-    })
-  );
-
+  const boardData = req.body;
+  const board = await boardsService.create(boardData);
   res.status(StatusCodes.CREATED).json(Board.toResponse(board));
 });
 

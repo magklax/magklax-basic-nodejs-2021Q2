@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { StatusCodes } from 'http-status-codes';
-import User from './user.model';
+import User from '../../entities/user.entity';
 import * as usersService from './user.service';
 
 const router = Router();
@@ -20,14 +20,8 @@ router.route('/:id').get(async (req, res) => {
 });
 
 router.route('/').post(async (req, res) => {
-  const user = await usersService.create(
-    new User({
-      name: req.body.name,
-      login: req.body.login,
-      password: req.body.password,
-    })
-  );
-
+  const userData = req.body;
+  const user = await usersService.create(userData);
   res.status(StatusCodes.CREATED).json(User.toResponse(user));
 });
 

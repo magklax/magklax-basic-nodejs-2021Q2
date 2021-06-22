@@ -1,6 +1,6 @@
 import { Request, Response, Router } from 'express';
 import { StatusCodes } from 'http-status-codes';
-import Task from './task.model';
+import Task from '../../entities/task.entity';
 import * as tasksService from './task.service';
 
 const router = Router({ mergeParams: true });
@@ -25,22 +25,14 @@ router.route('/:id').get(async (req, res) => {
 
 router.route('/').post(async (req: Request, res: Response) => {
   const { boardId } = req.params;
-  const task = await tasksService.create(
-    new Task({
-      title: req.body.title,
-      order: req.body.order,
-      description: req.body.description,
-      userId: req.body.userId,
-      columnId: req.body.columnId,
-      boardId,
-    })
-  );
+  const taskData = req.body;
+  const task = await tasksService.create({ ...taskData, boardId });
   res.status(StatusCodes.CREATED).json(Task.toResponse(task));
 });
 
 router.route('/:id').put(async (req: Request, res: Response) => {
   const { boardId, id } = req.params;
-  if (id) {
+  if (id && boardId) {
     try {
       const updatedTask: Task = {
         title: req.body.title,

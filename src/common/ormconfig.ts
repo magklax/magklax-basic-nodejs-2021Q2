@@ -7,19 +7,25 @@ dotenv.config({
 });
 
 const {
-  POSTGRES_HOST,
   POSTGRES_PORT,
   POSTGRES_USER,
   POSTGRES_PASSWORD,
   POSTGRES_DB,
 } = process.env;
 
-export const config: ConnectionOptions = {
+const config: ConnectionOptions = {
   type: 'postgres',
-  synchronize: true,
-  host: POSTGRES_HOST,
+  host: 'host.docker.internal',
   port: Number(POSTGRES_PORT),
   username: POSTGRES_USER,
   password: POSTGRES_PASSWORD,
   database: POSTGRES_DB,
+  entities: [path.join(__dirname, '../entities/*.entity.ts')],
+  migrationsTableName: 'custom_migration_table',
+  migrations: [path.join(__dirname, '../migrations/*.ts')],
+  cli: {
+    migrationsDir: 'src/migrations',
+  },
 };
+
+export default config;
