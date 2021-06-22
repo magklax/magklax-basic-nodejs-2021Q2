@@ -1,9 +1,9 @@
 import { v4 as uuidv4 } from 'uuid';
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
-import { IColumn } from '../types/column.interface';
+import { Entity, Column, PrimaryGeneratedColumn, BaseEntity } from 'typeorm';
+import { IBoardColumn } from '../types/column.interface';
 
-@Entity({ name: 'columns' })
-export class BoardColumn {
+@Entity()
+class BoardColumn extends BaseEntity  {
   @PrimaryGeneratedColumn('uuid')
   id = uuidv4();
 
@@ -13,7 +13,9 @@ export class BoardColumn {
   @Column('varchar')
   order!: number | 0;
 
-  static toResponse(column: IColumn) {
+  static toResponse(column: BoardColumn): IBoardColumn {
     return column;
   }
 }
+
+export default BoardColumn;

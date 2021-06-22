@@ -3,14 +3,14 @@ import { StatusCodes } from 'http-status-codes';
 import Board from '../../entities/board.entity';
 import * as boardsService from './board.service';
 
-const router = Router();
+const boardRouter = Router();
 
-router.route('/').get(async (_req, res) => {
+boardRouter.route('/').get(async (_req, res) => {
   const boards = await boardsService.getAll();
   res.json(boards.map(Board.toResponse));
 });
 
-router.route('/:id').get(async (req, res) => {
+boardRouter.route('/:id').get(async (req, res) => {
   try {
     const board = await boardsService.getById(req.params.id);
     res.json(Board.toResponse(board));
@@ -19,28 +19,24 @@ router.route('/:id').get(async (req, res) => {
   }
 });
 
-router.route('/').post(async (req, res) => {
+boardRouter.route('/').post(async (req, res) => {
   const boardData = req.body;
   const board = await boardsService.create(boardData);
   res.status(StatusCodes.CREATED).json(Board.toResponse(board));
 });
 
-router.route('/:id').put(async (req, res) => {
+boardRouter.route('/:id').put(async (req, res) => {
   try {
-    const updatedBoard = {
-      id: req.params.id,
-      title: req.body.title,
-      columns: [...req.body.columns],
-    };
-
-    const board = await boardsService.updateById(req.params.id, updatedBoard);
+    const updatedBoard: Board = req.body;
+    const id: string = req.params.id;
+    const board = await boardsService.updateById(id, updatedBoard);
     res.json(Board.toResponse(board));
   } catch (err) {
     res.status(StatusCodes.NOT_FOUND).send(err.message);
   }
 });
 
-router.route('/:id').delete(async (req, res) => {
+boardRouter.route('/:id').delete(async (req, res) => {
   try {
     const board = await boardsService.deleteById(req.params.id);
     res.json(Board.toResponse(board));
@@ -49,4 +45,4 @@ router.route('/:id').delete(async (req, res) => {
   }
 });
 
-export default router;
+export default boardRouter;

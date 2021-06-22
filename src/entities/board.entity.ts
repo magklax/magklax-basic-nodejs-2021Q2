@@ -1,10 +1,10 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 import { v4 as uuid } from 'uuid';
-import { IColumn } from '../types/column.interface';
+import { IBoardColumn } from '../types/column.interface';
 import { IBoard } from '../types/board.interface';
 
-@Entity({ name: 'boards' })
-class Board {
+@Entity()
+class Board extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id = uuid();
 
@@ -12,7 +12,7 @@ class Board {
   title = '';
 
   @Column('jsonb')
-  columns: IColumn[] = [];
+  columns: IBoardColumn[] = [];
 
   static toResponse(board: Board): IBoard {
     return { ...board };

@@ -1,9 +1,9 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 import { v4 as uuid } from 'uuid';
 import { ITask } from '../types/task.interface';
 
-@Entity({ name: 'tasks' })
-class Task {
+@Entity()
+class Task extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id = uuid();
 

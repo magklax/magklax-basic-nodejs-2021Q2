@@ -1,14 +1,14 @@
 import { v4 as uuid } from 'uuid';
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, BaseEntity } from 'typeorm';
 import { IUser } from '../types/user.interface';
 
 @Entity()
-class User {
+class User extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
-  id = uuid();
+  id: string = uuid();
 
   @Column('varchar')
-  name = '';
+  name: string = '';
 
   @Column('varchar')
   login!: string;

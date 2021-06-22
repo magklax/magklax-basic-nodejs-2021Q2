@@ -22,9 +22,9 @@ const config: ConnectionOptions = {
   database: POSTGRES_DB,
   entities: [path.join(__dirname, '../entities/*.entity.ts')],
   migrationsTableName: 'custom_migration_table',
-  migrations: [path.join(__dirname, '../migrations/*.ts')],
+  migrations: [path.join(__dirname, 'migrations/*.ts')],
   cli: {
-    migrationsDir: 'src/migrations',
+    migrationsDir: 'migrations',
   },
 };
 

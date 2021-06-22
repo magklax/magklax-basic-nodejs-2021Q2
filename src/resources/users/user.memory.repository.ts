@@ -3,7 +3,7 @@ import User from '../../entities/user.entity';
 
 export const getAll = async (): Promise<Array<User>> => {
   const userRepository = getRepository(User);
-  const users = await userRepository.find();
+  const users = await userRepository.find({ relations: ["users"] });
   return users;
 };
 
