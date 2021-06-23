@@ -20,11 +20,13 @@ const config: ConnectionOptions = {
   username: POSTGRES_USER,
   password: POSTGRES_PASSWORD,
   database: POSTGRES_DB,
+  synchronize: false,
+  logging: false,
   entities: [path.join(__dirname, '../entities/*.entity.ts')],
   migrationsTableName: 'custom_migration_table',
   migrations: [path.join(__dirname, 'migrations/*.ts')],
   cli: {
-    migrationsDir: 'migrations',
+    migrationsDir: 'migrat  ions',
   },
 };
 

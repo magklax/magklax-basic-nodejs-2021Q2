@@ -1,21 +1,37 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 import { v4 as uuid } from 'uuid';
-import { IBoardColumn } from '../types/column.interface';
 import { IBoard } from '../types/board.interface';
 
 @Entity()
-class Board extends BaseEntity {
+class Board implements IBoard {
   @PrimaryGeneratedColumn('uuid')
-  id = uuid();
+  id: string;
 
-  @Column('varchar')
-  title = '';
+  @Column()
+  title: string;
 
-  @Column('jsonb')
-  columns: IBoardColumn[] = [];
+  @Column({ type: 'json', nullable: true })
+  columns: { id: string; title: string; order: number; }[];
+
+  constructor({
+    id = uuid(),
+    title = 'title',
+    columns = [
+      {
+        id: uuid(),
+        title: 'title',
+        order: 0,
+      },
+    ],
+  } = {}) {
+    this.id = id;
+    this.title = title;
+    this.columns = columns;
+  }
 
   static toResponse(board: Board): IBoard {
-    return { ...board };
+    const { id, title, columns } = board;
+    return { id, title, columns };
   }
 }
 
