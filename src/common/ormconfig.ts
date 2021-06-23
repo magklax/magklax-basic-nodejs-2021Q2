@@ -26,7 +26,7 @@ const config: ConnectionOptions = {
   migrationsTableName: 'custom_migration_table',
   migrations: [path.join(__dirname, 'migrations/*.ts')],
   cli: {
-    migrationsDir: 'migrat  ions',
+    migrationsDir: 'migrations',
   },
 };
 

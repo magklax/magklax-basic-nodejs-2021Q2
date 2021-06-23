@@ -5,5 +5,5 @@ export interface ITask {
   description: string;
   userId: string | null;
   boardId: string | null;
-  columnId: string;
+  columnId: string | null;
 }

@@ -1,38 +1,17 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
-import { v4 as uuid } from 'uuid';
-import { IBoard } from '../types/board.interface';
+import { Column, Entity, PrimaryColumn } from 'typeorm';
+import { IColumn } from '../types/column.interface';
+import { IBoard } from "../types/board.interface";
 
-@Entity()
+@Entity({ name: 'board' })
 class Board implements IBoard {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
+  @PrimaryColumn('uuid')
+  id!: string;
 
-  @Column()
-  title: string;
+  @Column('varchar')
+  title = 'title';
 
-  @Column({ type: 'json', nullable: true })
-  columns: { id: string; title: string; order: number; }[];
-
-  constructor({
-    id = uuid(),
-    title = 'title',
-    columns = [
-      {
-        id: uuid(),
-        title: 'title',
-        order: 0,
-      },
-    ],
-  } = {}) {
-    this.id = id;
-    this.title = title;
-    this.columns = columns;
-  }
-
-  static toResponse(board: Board): IBoard {
-    const { id, title, columns } = board;
-    return { id, title, columns };
-  }
+  @Column('json')
+  columns: IColumn[] = [];
 }
 
 export default Board;

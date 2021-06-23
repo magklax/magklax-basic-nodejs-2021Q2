@@ -1,37 +1,19 @@
-import { v4 as uuid } from 'uuid';
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryColumn } from 'typeorm';
 import { IUser } from '../types/user.interface';
 
-@Entity()
-export class User implements IUser {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
+@Entity('user')
+class User implements IUser {
+  @PrimaryColumn('uuid')
+  id!: string;
 
-  @Column()
-  name: string;
+  @Column('varchar')
+  name = 'name';
 
-  @Column()
-  login: string;
+  @Column('varchar')
+  login = 'login';
 
-  @Column()
-  password: string;
-
-  constructor({
-    id = uuid(),
-    name = 'name',
-    login = 'login',
-    password = 'password',
-  } = {}) {
-    this.id = id;
-    this.name = name;
-    this.login = login;
-    this.password = password;
-  }
-
-  static toResponse(user: User): IUser {
-    const { id, name, login } = user;
-    return { id, name, login };
-  }
+  @Column('varchar')
+  password = 'password';
 }
 
 export default User;

@@ -1,5 +1,5 @@
-export interface IBoardColumn {
-  id?: string;
+export interface IColumn {
+  id: string;
   title: string;
   order: number;
 }
