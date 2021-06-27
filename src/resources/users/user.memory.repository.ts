@@ -1,23 +1,49 @@
-import User from './user.model';
-import {
-  getAllUsers,
-  getUser,
-  createUser,
-  updateUser,
-  deleteUser,
-  unasignTasks,
-} from '../../common/inMemoryDB';
+import { getRepository } from 'typeorm';
+import User from '../../entities/user.entity';
 
-export const getAll = async (): Promise<Array<User>> => getAllUsers();
+export const getAll = async (): Promise<Array<User>> => {
+  const userRepository = getRepository(User);
+  const users = await userRepository.find({ relations: ["users"] });
+  return users;
+};
 
-export const getById = async (id: string): Promise<User> => getUser(id);
+export const getById = async (id: string): Promise<User> => {
+  const userRepository = getRepository(User);
+  const user = await userRepository.findOne(id);
 
-export const create = async (user: User): Promise<User> => createUser(user);
+  if (!user) {
+    throw new Error(`The user with id: ${id} has not been found`);
+  }
 
-export const updateById = async (id: string, updatedUser: User): Promise<User> => updateUser(id, updatedUser);
+  return user;
+};
+
+export const create = async (userData: User): Promise<User> => {
+  const userRepository = getRepository(User);
+  const user = userRepository.create(userData);
+  return userRepository.save(user);
+};
+
+export const updateById = async (id: string, userData: User): Promise<User> => {
+  const userRepository = getRepository(User);
+  const user = await userRepository.findOne(id);
+
+  if (!user) {
+    throw new Error(`The user with id: ${id} has not been found`);
+  }
+
+  const updatedUser = await userRepository.update(id, userData);
+  return updatedUser.raw;
+};
 
 export const deleteById = async (id: string): Promise<User> => {
-  const user = await deleteUser(id);
-  unasignTasks(id);
-  return user;
+  const userRepository = getRepository(User);
+
+  const deletedUser = await userRepository.delete(id);
+
+  if (!deletedUser.affected) {
+    throw new Error(`The user with id: ${id} has not been found`);
+  }
+
+  return deletedUser.raw;
 };
